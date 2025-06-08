@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 
 interface Feed {
@@ -5,7 +7,7 @@ interface Feed {
   title: string;
   company?: string;
   description?: string;
-  [key: string]: any; // additional fields
+  [key: string]: any;
 }
 
 export default function HomePage() {
