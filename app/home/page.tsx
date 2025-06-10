@@ -7,6 +7,7 @@ interface Feed {
   title: string;
   company?: string;
   description?: string;
+  creator?: string;
   [key: string]: any;
 }
 
@@ -34,13 +35,19 @@ export default function HomePage() {
   return (
     <main className="p-4">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-2xl font-bold mb-4">Feeds</h1>
+        <h1 className="text-2xl font-bold mb-4">Feeds by Eric</h1>
         {errorMessage && (
           <p className="text-red-500 mb-2">Error: {errorMessage}</p>
+        )}
+        {feeds.length === 0 && (
+          <p>No feeds found for creator = "eric".</p>
         )}
         {feeds.map((feed) => (
           <div key={feed.id} className="border border-gray-300 rounded-md p-4 mb-4">
             <h2 className="text-xl font-semibold">{feed.title}</h2>
+            {feed.creator && (
+              <p className="text-gray-700 mt-1">Creator: {feed.creator}</p>
+            )}
             {feed.company && (
               <p className="text-gray-700 mt-1">Company: {feed.company}</p>
             )}
