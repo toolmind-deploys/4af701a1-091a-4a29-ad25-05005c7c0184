@@ -6,7 +6,12 @@ export async function GET() {
   try {
     initFirebaseAdminSDK();
     const db = getFirestore();
-    const snapshot = await db.collection('feeds').get();
+    // Retrieve only feeds where creator = 'eric'
+    const snapshot = await db
+      .collection('feeds')
+      .where('creator', '==', 'eric')
+      .get();
+
     const feeds = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
     return NextResponse.json({ feeds });
