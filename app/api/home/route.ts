@@ -6,19 +6,11 @@ export async function GET() {
   try {
     initFirebaseAdminSDK();
     const db = getFirestore();
-    // Retrieve only feeds where creator = 'eric'
-    const snapshot = await db
-      .collection('feeds')
-      .where('creator', '==', 'eric')
-      .get();
+    const snapshot = await db.collection('feeds').get();
+    const data = snapshot.docs.map((doc) => doc.data());
 
-    const feeds = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-
-    return NextResponse.json({ feeds });
-  } catch (error) {
-    return NextResponse.json(
-      { error: (error as Error).message },
-      { status: 500 }
-    );
+    return NextResponse.json({ data });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
