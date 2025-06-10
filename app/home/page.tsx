@@ -1,34 +1,44 @@
 import React from 'react';
 
-export default async function NewsPage() {
-  // Fetch feed data from our API route
+export default async function JokesPage() {
   const response = await fetch('http://localhost:3000/api/home', {
     cache: 'no-store',
   });
 
-  // "data" will contain the array of feed objects
   const { data } = await response.json();
 
+  // Transform feed data to display comedic or entertaining style jokes
+  const jokes = data.map((feed: any) => {
+    // Create a playful or joke-like version of the title.
+    const jokeTitle = `Here's a joke about '${feed.title}': Did you hear it was pinned? It's ${feed.pinned ? 'definitely pinned!' : 'apparently not pinned.'}`;
+
+    return {
+      id: feed.id,
+      jokeTitle,
+      status: feed.status,
+      company: feed.company,
+      createdAt: feed.createdAt
+    };
+  });
+
   return (
-    <main className="p-4 space-y-4">
-      <h1 className="text-2xl font-bold mb-4">Funny Fake News</h1>
-      {data && Array.isArray(data) && data.length > 0 ? (
-        data.map((feed: any, index: number) => {
-          // Combine feed data with comedic flair
-          const comedicHeadline = `BREAKING: ${feed.company || 'Unknown Company'} Strikes Again - "${feed.title}"!`;
-          return (
-            <div key={index} className="border rounded-md p-4">
-              <h2 className="text-lg font-semibold mb-2">{comedicHeadline}</h2>
-              <p className="text-gray-600">Status: {feed.status}</p>
-              <p className="text-sm mt-2">
-                We have just received unconfirmed, possibly sensational, news regarding "{feed.title}"! Word on the street is that the job type is "{feed.jobType}" and feed type is "{feed.feedType}". Stay tuned for more comedic developments!
-              </p>
+    <main className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Jokes Page</h1>
+      <div className="space-y-4">
+        {jokes && jokes.length > 0 ? (
+          jokes.map((jokeItem: any, index: number) => (
+            <div key={index} className="p-4 border rounded-md">
+              <h2 className="text-lg font-semibold">{jokeItem.jokeTitle}</h2>
+              <p>ID: {jokeItem.id}</p>
+              <p>Status: {jokeItem.status}</p>
+              {jokeItem.company && <p>Company: {jokeItem.company}</p>}
+              <p>Created At: {new Date(jokeItem.createdAt).toLocaleString()}</p>
             </div>
-          );
-        })
-      ) : (
-        <p>No comedic headlines found.</p>
-      )}
+          ))
+        ) : (
+          <p>No jokes to crack right now.</p>
+        )}
+      </div>
     </main>
   );
 }
