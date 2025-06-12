@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-    return NextResponse.json({ message: "Dog page" });
+    return NextResponse.json({ message: "Cat page" });
 }
