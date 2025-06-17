@@ -1,18 +1,10 @@
-import Image from 'next/image';
+import React from 'react';
 
 export default function HomePage() {
-  return (
-    <main className="flex justify-center items-center h-screen">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold mb-4">Dog in the Middle</h1>
-        <Image
-          src="https://images.dog.ceo/breeds/hound-afghan/n02088094_1003.jpg"
-          alt="A Cute Dog"
-          width={300}
-          height={300}
-          className="mx-auto rounded"
-        />
-      </div>
-    </main>
-  );
+    return (
+        <main className="flex flex-col items-center justify-center h-screen">
+            <div className="text-9xl font-bold mb-4">1</div>
+            <p className="text-2xl">I love llm</p>
+        </main>
+    );
 }
