@@ -3,8 +3,12 @@ import React from 'react';
 export default async function FeedsPage() {
   // Fetch the feeds list from our custom API endpoint.
   // Using no-store caching to ensure fresh content.
-  const res = await fetch('http://localhost:3000/api/feeds', { cache: 'no-store' });
+  const res = await fetch('http://localhost:3000/api/feeds', {
+    cache: 'no-store',
+  });
   const data = await res.json();
+
+  // The API response should have a 'feeds' array.
   const { feeds } = data;
 
   return (
